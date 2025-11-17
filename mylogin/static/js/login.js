@@ -25,15 +25,20 @@ document.getElementById('contact-form').addEventListener('submit', async (e) => 
   }
 
   try {
-    const res = await fetch('http://localhost:5000/api/submit', {
+    const res = await fetch('api/submit/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, email, message })
     });
     const data = await res.json();
     response.textContent = data.message;
-    response.style.color = 'green';
-  } catch {
+    response.style.color = res.ok ? 'green': 'red';
+
+    // Clear form on success
+    if (res.ok) {
+      document.getElementById('contact-form').reset();
+    }
+  } catch (error) {
     response.textContent = 'Error submitting form.';
     response.style.color = 'red';
   }
