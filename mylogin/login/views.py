@@ -33,7 +33,7 @@ def submit_message(request):
         )
 
         return JsonResponse({
-            'message': f'Thank you, {name}! Your message has been received.',
+            'message': f'Thank you, {name.title()}! Your message has been received.',
             'id': contact_message.id
         }, status=201)
 
